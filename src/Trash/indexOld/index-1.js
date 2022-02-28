@@ -217,7 +217,6 @@ export function JustGo() {
                           }}
                         >
                           {column.items.map((item, index) => {
-                            console.log(item);
                             return <Services data={item} />;
                           })}
                           {provided.placeholder}

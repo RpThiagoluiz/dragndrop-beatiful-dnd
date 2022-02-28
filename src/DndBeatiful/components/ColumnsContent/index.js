@@ -1,6 +1,11 @@
 import { Draggable, Droppable } from "react-beautiful-dnd";
 
-export const ColumnsContent = ({ columnId, column }) => {
+export const ColumnsContent = ({
+  columnId,
+  column,
+  isDragDisabled = false,
+}) => {
+  // console.log(`column.type`, column.type);
   return (
     <div
       style={{
@@ -34,6 +39,9 @@ export const ColumnsContent = ({ columnId, column }) => {
                     <Draggable
                       key={item.validatorCode}
                       draggableId={item.validatorCode}
+                      //isDragDisabled={item.itemIdenfitier === "resolveRisk"}
+                      // pegar essa props e passar ela para o
+                      isDragDisabled={isDragDisabled}
                       ignoreContainerClipping
                       index={index}
                     >

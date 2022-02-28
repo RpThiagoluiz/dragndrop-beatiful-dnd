@@ -13,6 +13,7 @@ export const formatedData = (arrayOfServices) => {
     const formatedItem = {
       [uuidv4()]: {
         name: item.serviceCode,
+        type: item.serviceCode,
         items: itens,
         configured: item.configured,
       },

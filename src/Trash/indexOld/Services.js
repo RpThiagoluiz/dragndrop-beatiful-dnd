@@ -3,8 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 export const Services = (data) => {
   const DraggableItens = ({ data }) => {
     return data.data.validators.map((validator, index) => {
-      console.log(validator.title, index);
-
       return (
         <Draggable
           key={validator.validatorCode}

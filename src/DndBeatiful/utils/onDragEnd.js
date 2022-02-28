@@ -1,36 +1,39 @@
-export const onDragEnd = (result, columns, setColumns) => {
+import { servicesNames } from "./servicesNames";
+
+export const onDragEnd = (result, columns, setColumns, data) => {
   if (!result.destination) return;
+
   const { source, destination } = result;
   const verifyDestinationItens = columns[destination.droppableId]?.items;
   const verifyDestinyServiceName = columns[destination.droppableId]?.name;
   const verifySourceServiceName = columns[source.droppableId]?.name;
-  const notSend = ["datavalid", "resolveRisk", "inovaMind"]; // Remover
+
+  // const servicesName = ["data-valid", "resolve-risk", "inova-mind"]; // Remover
 
   // console.log(`verifyDestinationItens`, verifyDestinationItens);
 
-  // const dontSend = verifyDestinationItens.map((item) => {
-  //   let identifier = item.itemIdenfitier;
-  //   console.log(
-  //     `IDENTIFIER, ${identifier}`,
-  //     notSend.includes(identifier),
-  //     "👉",
-  //     verifyDestinyServiceName
-  //   );
-  //   // let revert = false;
-  //   // if (notSend.includes(item.itemIdenfitier)) {
-  //   //   revert = true;
-  //   //   console.log(`revert`, revert);
-  //   // }
-  //   // return revert;
-  // });
+  const sourceColumn = columns[source.droppableId]?.type;
+  const destinyColumn = columns[destination.droppableId]?.type;
+  const services = servicesNames(data);
+  // sourceColumn === undefined &&
+  if (destinyColumn !== "block") {
+    // preciso do dado do item q esta se movendo.
+    const verifyDestinationItens = columns[destination.droppableId];
+
+    console.log(`verifyDestinationItens`, verifyDestinationItens);
+
+    return;
+  }
+
+  //   console.log(sourceColumn, "👉", destinyColumn);
+  //   //console.log(`result`, result);
+  // }
+  // 1 - undefined -> destinyColumn notSend manda pra la
+  // 2 -
+
+  // console.log(`sourceColumn`, notSend.includes(sourceColumn));
 
   // if (dontSend) return;
-  console.log(verifySourceServiceName, "👉", verifyDestinyServiceName);
-
-  if (notSend.includes(verifyDestinyServiceName)) {
-    console.log(`notSend`, verifyDestinyServiceName);
-    // de um drag and drop de um item que esta concluido nao conseguir voltar
-  }
 
   if (source.droppableId !== destination.droppableId) {
     const sourceColumn = columns[source.droppableId];
