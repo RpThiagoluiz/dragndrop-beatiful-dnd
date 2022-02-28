@@ -2,7 +2,14 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { onDragEnd } from "../../utils";
 import { ColumnsContent } from "../ColumnsContent";
 
-export const DragContext = ({ columns, setColumns, isDragDisabled, data }) => (
+export const DragContext = ({
+  columns,
+  setColumns,
+  dragDisabledForEditColumn,
+  data,
+  handleRemoveColumns,
+  handleEditColumns,
+}) => (
   <DragDropContext
     onDragEnd={(result) => onDragEnd(result, columns, setColumns, data)}
   >
@@ -11,7 +18,9 @@ export const DragContext = ({ columns, setColumns, isDragDisabled, data }) => (
         columnId={columnId}
         column={column}
         key={index}
-        isDragDisabled={isDragDisabled}
+        dragDisabledForEditColumn={dragDisabledForEditColumn}
+        handleRemoveColumns={() => handleRemoveColumns(columnId)}
+        handleEditColumns={() => handleEditColumns(columnId)}
       />
     ))}
   </DragDropContext>

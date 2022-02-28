@@ -4,7 +4,6 @@ import { addNewBlockName } from "./addNewBlockName";
 export const formatedNewBlockName = (newBlockName, setNewBlockName) => {
   let resultNewName;
   let last = 0;
-  console.log(`resultNewName`, newBlockName);
 
   if (newBlockName === "") {
     resultNewName = addNewBlockName(antiFraudFlows);

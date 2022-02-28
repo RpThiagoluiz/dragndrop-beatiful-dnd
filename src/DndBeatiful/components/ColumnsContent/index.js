@@ -1,11 +1,18 @@
 import { Draggable, Droppable } from "react-beautiful-dnd";
+import { BsFillGearFill } from "react-icons/bs";
+import { FaTrashAlt } from "react-icons/fa";
 
 export const ColumnsContent = ({
   columnId,
   column,
-  isDragDisabled = false,
+  dragDisabledForEditColumn = null,
+  handleRemoveColumns,
+  handleEditColumns,
 }) => {
-  // console.log(`column.type`, column.type);
+  const isEditColumn =
+    dragDisabledForEditColumn.disabled &&
+    dragDisabledForEditColumn.id === columnId;
+
   return (
     <div
       style={{
@@ -15,7 +22,20 @@ export const ColumnsContent = ({
       }}
       key={columnId}
     >
-      <h2>{column.name}</h2>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <h2 style={{ marginRight: 18 }}>{column.name}</h2>
+
+        {column.type === "block" && (
+          <div>
+            <BsFillGearFill
+              style={{ marginRight: 5 }}
+              onClick={() => handleEditColumns(columnId)}
+            />
+
+            <FaTrashAlt onClick={() => handleRemoveColumns(columnId)} />
+          </div>
+        )}
+      </div>
       <div style={{ margin: 8 }}>
         <Droppable droppableId={columnId} key={columnId}>
           {(provided, snapshot) => {
@@ -24,52 +44,62 @@ export const ColumnsContent = ({
                 {...provided.droppableProps}
                 ref={provided.innerRef}
                 style={{
-                  background: snapshot.isDraggingOver
+                  background: isEditColumn
+                    ? "pink"
+                    : snapshot.isDraggingOver
                     ? "lightblue"
                     : "lightgrey",
                   padding: 5,
                   width: 250,
-                  height: 200,
+                  height: isEditColumn ? 500 : 200,
                   overflowY: "auto",
                   overflowX: "hidden",
                 }}
               >
-                {column.items.map((item, index) => {
-                  return (
-                    <Draggable
-                      key={item.validatorCode}
-                      draggableId={item.validatorCode}
-                      //isDragDisabled={item.itemIdenfitier === "resolveRisk"}
-                      // pegar essa props e passar ela para o
-                      isDragDisabled={isDragDisabled}
-                      ignoreContainerClipping
-                      index={index}
-                    >
-                      {(provided, snapshot) => {
-                        return (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            style={{
-                              userSelect: "none",
-                              padding: 16,
-                              margin: "0 0 8px 0",
-                              minHeight: "50px",
-                              backgroundColor: snapshot.isDragging
-                                ? "#263B4A"
-                                : "#456C86",
-                              color: "white",
-                              ...provided.draggableProps.style,
-                            }}
-                          >
-                            {item.title}
-                          </div>
-                        );
-                      }}
-                    </Draggable>
-                  );
-                })}
+                {isEditColumn ? (
+                  <div>
+                    {" "}
+                    <h2>Topicos </h2>{" "}
+                  </div>
+                ) : (
+                  column.items.map((item, index) => {
+                    return (
+                      <Draggable
+                        key={item.validatorCode}
+                        draggableId={item.validatorCode}
+                        //isDragDisabled={item.itemIdenfitier === "resolveRisk"}
+                        // pegar essa props e passar ela para o
+                        isDragDisabled={dragDisabledForEditColumn.disabled}
+                        ignoreContainerClipping
+                        index={index}
+                      >
+                        {(provided, snapshot) => {
+                          return (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              style={{
+                                userSelect: "none",
+                                padding: 16,
+                                margin: "0 0 8px 0",
+                                minHeight: "50px",
+                                backgroundColor: snapshot.isDragging
+                                  ? "#263B4A"
+                                  : "#456C86",
+                                color: "white",
+                                ...provided.draggableProps.style,
+                              }}
+                            >
+                              {item.title}
+                            </div>
+                          );
+                        }}
+                      </Draggable>
+                    );
+                  })
+                )}
+
                 {provided.placeholder}
               </div>
             );

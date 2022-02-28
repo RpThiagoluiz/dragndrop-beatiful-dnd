@@ -5,13 +5,13 @@ _Formatar_
 [x] Return dos Blocks criados `flows`
 [x] Adc numero maximo de blocos de 10. Vc vai pegar a quantidade de blocos ja existente do retorno do backend. Criar um nome para eles.
 Salvar o estado do novo nome do bloco. Caso o bloco estoure 10 unidades alertar o usuario e nao permitir criar mais blocos.
-[] Salvar formatar a data para o backend
-[] Salvar remover os tipos resolve-risk, data-valid e Inova-mind
+[x] Salvar formatar a data para o backend
+[x] Salvar remover os tipos resolve-risk, data-valid e Inova-mind
 
 _Drag and Drop_
 [] Servicos, os servicos nao poderam conversar entre SI, ["data-valid", "resolve-risk", "inova-mind"].
 Caso o usuario tente adc voltar o servico para a sua categoria.
-[] Blocos, podem enviar informacao entre si.
+[x] Blocos, podem enviar informacao entre si.
 [] Blocos, podem remover um item da sua coluna retornar esse item para a sua coluna inicial.
 [] Blocos, se um item que estiver no bloco for movido para fora de outro bloco ele deve retornar a sua origiem
 

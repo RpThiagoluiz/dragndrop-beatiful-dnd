@@ -11,7 +11,10 @@ import { v4 as uuidv4 } from "uuid";
 
 export function DndBeatiful() {
   const [columns, setColumns] = useState(null);
-  const [isDragDisabled, setIsDragDisabled] = useState(false);
+  const [dragDisabledForEditColumn, setDragDisabledForEditColumn] = useState({
+    id: null,
+    disabled: false,
+  });
   const [columnsToSave, setColumnsToSave] = useState(null);
   const [newBlockName, setNewBlockName] = useState("");
 
@@ -37,6 +40,23 @@ export function DndBeatiful() {
     formatedBlocksToSave(columns, setColumnsToSave);
   };
 
+  const handleRemoveColumns = (columnId) => {
+    console.log("handleRemoveColumns", columns[columnId]);
+    // Perguntar se ele realmente quer deletar a coluna, caso ele aceite.
+    // refazer a resquest dos servicos e do flows.
+    delete columns[columnId];
+    setColumns((prevState) => ({ ...prevState, ...columns }));
+  };
+
+  const handleEditColumns = (columnId) => {
+    // salvar as paradas que a sarah colocou por bloco.
+    console.log("handleEditColumns", columns[columnId]);
+    setDragDisabledForEditColumn((prevState) => ({
+      id: columnId,
+      disabled: !prevState.disabled,
+    }));
+  };
+
   useEffect(() => {
     const data = formatedData(antiFraudControlsServices);
     const result = formatedFlows(antiFraudFlows);
@@ -58,9 +78,6 @@ export function DndBeatiful() {
           <input type="submit" value="Add bloco" />
         </form>
       </div>
-      <button onClick={() => setIsDragDisabled((prevState) => !prevState)}>
-        Desativar drag`n drop
-      </button>
 
       <button onClick={handleSave}>Salvar</button>
 
@@ -73,8 +90,10 @@ export function DndBeatiful() {
         <DragContext
           columns={columns}
           setColumns={setColumns}
-          isDragDisabled={isDragDisabled}
+          dragDisabledForEditColumn={dragDisabledForEditColumn}
           data={antiFraudControlsServices}
+          handleRemoveColumns={handleRemoveColumns}
+          handleEditColumns={handleEditColumns}
         />
       </div>
     </>
