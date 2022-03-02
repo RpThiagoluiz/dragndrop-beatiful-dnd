@@ -6,21 +6,15 @@ export const filterServices = (arrayOfServices, arrayOfFlows) => {
 
   Object.values(flows).map((service) => {
     service.items.map((item) => {
-      validatorForRemove.push(item);
+      validatorForRemove.push(item.validatorCode);
     });
   });
 
-  console.log(`oi`, validatorForRemove);
-
   Object.values(services).map((service) => {
-    const items = service.items;
-    items.filter((item, index) => item.validatorCode !== "pep_search_v2");
-
-    console.log(`services - ${service.name}`, items);
-
-    service.items = items;
-    // Formatar o item do bloco para ficar igual, ao item do servico.
-    // pegar esse itens e remover do servico
+    const filterItems = service.items.filter((item, index, array) => {
+      return validatorForRemove.indexOf(item.validatorCode) === -1;
+    });
+    service.items = filterItems;
   });
 
   const result = { ...services, ...flows };
