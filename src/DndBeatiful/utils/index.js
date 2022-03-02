@@ -6,3 +6,4 @@ export { onDragStart } from "./onDragStart";
 export { addNewBlockName } from "./addNewBlockName";
 export { formatedNewBlockName } from "./formatedNewBlockName";
 export { formatedBlocksToSave } from "./formatedBlocksToSave";
+export { filterServices } from "./filterServices";

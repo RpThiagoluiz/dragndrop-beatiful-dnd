@@ -1,4 +1,4 @@
-import { antiFraudFlows } from "../data";
+import { getValidationsFlow } from "../data";
 import { addNewBlockName } from "./addNewBlockName";
 
 export const formatedNewBlockName = (newBlockName, setNewBlockName) => {
@@ -6,7 +6,7 @@ export const formatedNewBlockName = (newBlockName, setNewBlockName) => {
   let last = 0;
 
   if (newBlockName === "") {
-    resultNewName = addNewBlockName(antiFraudFlows);
+    resultNewName = addNewBlockName(getValidationsFlow);
 
     const result = resultNewName.split(" ");
     const [first, second] = result;

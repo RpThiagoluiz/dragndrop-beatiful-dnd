@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { DragContext } from "./components";
 import {
+  filterServices,
   formatedBlocksToSave,
   formatedData,
   formatedFlows,
   formatedNewBlockName,
 } from "./utils";
-import { antiFraudControlsServices, antiFraudFlows } from "./data";
+import { getConfigurationService, getValidationsFlow } from "./data";
 import { v4 as uuidv4 } from "uuid";
 
 export function DndBeatiful() {
@@ -58,9 +59,11 @@ export function DndBeatiful() {
   };
 
   useEffect(() => {
-    const data = formatedData(antiFraudControlsServices);
-    const result = formatedFlows(antiFraudFlows);
-    setColumns({ ...data, ...result });
+    const services = formatedData(getConfigurationService);
+    const flows = formatedFlows(getValidationsFlow);
+
+    const result = filterServices(services, flows);
+    setColumns({ ...result });
   }, []);
 
   useEffect(() => {
@@ -91,7 +94,7 @@ export function DndBeatiful() {
           columns={columns}
           setColumns={setColumns}
           dragDisabledForEditColumn={dragDisabledForEditColumn}
-          data={antiFraudControlsServices}
+          data={getConfigurationService}
           handleRemoveColumns={handleRemoveColumns}
           handleEditColumns={handleEditColumns}
         />

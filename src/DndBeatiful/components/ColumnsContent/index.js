@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { BsFillGearFill } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa";
+import { ConfigBlocks } from "./ConfigBlocks";
 
 export const ColumnsContent = ({
   columnId,
@@ -9,9 +11,24 @@ export const ColumnsContent = ({
   handleRemoveColumns,
   handleEditColumns,
 }) => {
+  //TODO: aqui tem q vim do backend e a informacao vai ser repassada.
+
   const isEditColumn =
     dragDisabledForEditColumn.disabled &&
     dragDisabledForEditColumn.id === columnId;
+
+  const [configureBlock, setConfigureBlock] = useState({
+    justOneItem: false,
+    moreItens: false,
+    oneItemRefuseContinue: false,
+    moreItemsRefuseContinue: false,
+    aproved: false,
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(configureBlock);
+  };
 
   return (
     <div
@@ -26,6 +43,8 @@ export const ColumnsContent = ({
         <h2 style={{ marginRight: 18 }}>{column.name}</h2>
 
         {column.type === "block" && (
+          // TODO: _!important_
+          // Nao esquecer de quando deletar um bloco, refazer a request dos servicos e dos flows.
           <div>
             <BsFillGearFill
               style={{ marginRight: 5 }}
@@ -57,10 +76,11 @@ export const ColumnsContent = ({
                 }}
               >
                 {isEditColumn ? (
-                  <div>
-                    {" "}
-                    <h2>Topicos </h2>{" "}
-                  </div>
+                  <ConfigBlocks
+                    handleSubmit={handleSubmit}
+                    configureBlock={configureBlock}
+                    setConfigureBlock={setConfigureBlock}
+                  />
                 ) : (
                   column.items.map((item, index) => {
                     return (
