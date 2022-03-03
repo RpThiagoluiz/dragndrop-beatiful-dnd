@@ -3,7 +3,6 @@ export const getValidationsFlow = [
     stepCode: "enterprise",
     blocks: [
       {
-        createAccountIfApproved: false,
         stepCode: "enterprise",
         sequential: 1,
         validators: [
@@ -13,6 +12,8 @@ export const getValidationsFlow = [
             validatorCode: "pep_search_v2",
           },
         ],
+        createAccountIfApproved: true,
+        blockConfigurations: "reproveUniqueRegister",
       },
       {
         createAccountIfApproved: false,

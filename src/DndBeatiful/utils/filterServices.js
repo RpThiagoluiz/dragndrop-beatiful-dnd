@@ -11,7 +11,7 @@ export const filterServices = (arrayOfServices, arrayOfFlows) => {
   });
 
   Object.values(services).map((service) => {
-    const filterItems = service.items.filter((item, index, array) => {
+    const filterItems = service.items.filter((item) => {
       return validatorForRemove.indexOf(item.validatorCode) === -1;
     });
     service.items = filterItems;
