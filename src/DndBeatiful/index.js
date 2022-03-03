@@ -9,6 +9,7 @@ import {
 } from "./utils";
 import { getConfigurationService, getValidationsFlow } from "./data";
 import { v4 as uuidv4 } from "uuid";
+import styles from "./style.module.scss";
 
 export function DndBeatiful() {
   const [columns, setColumns] = useState(null);
@@ -75,21 +76,11 @@ export function DndBeatiful() {
   }
 
   return (
-    <>
-      <div style={{ margin: 15 }}>
-        <form onSubmit={handleAddBlock}>
-          <input type="submit" value="Add bloco" />
-        </form>
-      </div>
-
-      <button onClick={handleSave}>Salvar</button>
-
-      <div
-        style={{
-          display: "flex",
-          width: "100%",
-        }}
-      >
+    <div className={styles.body}>
+      <form onSubmit={handleAddBlock}>
+        <input type="submit" value="Add bloco" />
+      </form>
+      <div className={styles.contentDrag}>
         <DragContext
           columns={columns}
           setColumns={setColumns}
@@ -99,6 +90,12 @@ export function DndBeatiful() {
           handleEditColumns={handleEditColumns}
         />
       </div>
-    </>
+
+      <div className={styles.contentButtons}>
+        <button className={styles.saveButton} onClick={handleSave}>
+          Salvar Alteracoes
+        </button>
+      </div>
+    </div>
   );
 }
